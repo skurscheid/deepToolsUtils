@@ -5,8 +5,6 @@ MakeBEDFromEnsemblGTF <- function(gtf_file = NULL,
                                       features = c("genes", "transcripts", "exons", "cds", "promoters")){
   match.arg(features, several.ok = FALSE)
 
-  library("GenomicFeatures")
-
   if (tryCatch(file.exists(gtf_file))){
     tryCatch(txdb <- GenomicFeatures::makeTxDbFromGFF(gtf_file))
     if (features == "genes"){

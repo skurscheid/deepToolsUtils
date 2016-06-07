@@ -3,9 +3,6 @@ DownloadEnsemblGTF <- function(version = "current",
                                  temp_dir = "/tmp",
                                  organism = "homo_sapiens"){
   match.arg(organism)
-
-  library("curl")
-
   source_file = paste(url, organism, "Homo_sapiens.GRCh38.84.gtf.gz", sep = "/")
   dest_file = paste(temp_dir, "Homo_sapiens.GRCh38.84.gtf.gz", sep = "/")
   if (! file.exists(dest_file)){

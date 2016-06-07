@@ -1,9 +1,13 @@
 Package: deepToolsUtils
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Pre and postprocessing functions for HTS data analysis using deepTools.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Sebastian Kurscheid [aut, cre]
+Maintainer: Sebastian Kurscheid <sebastian.kurscheid@anu.edu.au>
+Depends: R (>= 3.3.0), GenomicFeatures, curl, biomaRt
+Suggests: GenomicRanges
+Description: This is a collection of stand-alone functions which can be deployed in a snakemake workflow in order to create e.g. region files in BED format from existing annotation such as Ensembl GTF files. These BED files can then be used in the deepTool analysis steps for e.g. creating metagene plots over selected genomic features. Further functions will be added for the post-processing of deepTools output, such as the integration of gene expression data or other epigenomic data sets.
+License: MIT
+URL: https://github.com/skurscheid/deepToolsUtils
+BugReports: https://github.com/skurscheid/deepToolsUtils/issues
 LazyData: TRUE

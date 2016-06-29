@@ -63,7 +63,13 @@ WriteGRangesToBED <- function(gr = NULL,
   if (is.null(out_file)) {stop("Output file is missing")}
 
   # pre-check if all fields are available for export
-
+  if (is.null(names(gr))) {
+  df <- data.frame(seqnames = seqnames(gr),
+                   starts = as(start(gr) - 1, "integer"),
+                   ends = as(end(gr), "integer"),
+                   scores = ".",
+                   strand = strand(gr))
+  } else {
   df <- data.frame(seqnames = seqnames(gr),
                    starts = as(start(gr) - 1, "integer"),
                    ends = as(end(gr), "integer"),
@@ -71,6 +77,7 @@ WriteGRangesToBED <- function(gr = NULL,
                    scores = ".",
                    strand = strand(gr))
   write.table(df, file = out_file, quote = F, sep = "\t", row.names = F, col.names = F)
+  }
 }
 
 

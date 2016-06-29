@@ -76,8 +76,8 @@ WriteGRangesToBED <- function(gr = NULL,
                    names = names(gr),
                    scores = ".",
                    strand = strand(gr))
-  write.table(df, file = out_file, quote = F, sep = "\t", row.names = F, col.names = F)
   }
+  write.table(df, file = out_file, quote = F, sep = "\t", row.names = F, col.names = F)
 }
 
 

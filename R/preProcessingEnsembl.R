@@ -36,7 +36,7 @@ MakeBEDFromEnsemblGTF <- function(gtf_file = NULL,
                                   output_dir = "/tmp",
                                   features = c("genes", "transcripts", "exons", "cds", "promoters")){
   match.arg(features, several.ok = FALSE)
-
+  if(is.null(gtf_file)) stop("GTF file missing")
   if (tryCatch(file.exists(gtf_file))){
     tryCatch(txdb <- GenomicFeatures::makeTxDbFromGFF(gtf_file))
     if (features == "genes"){
@@ -61,6 +61,8 @@ WriteGRangesToBED <- function(gr = NULL,
                               out_file = NULL){
   if (is.null(gr)) {stop("GRanges object missing")}
   if (is.null(out_file)) {stop("Output file is missing")}
+
+  # pre-check if all fields are available for export
 
   df <- data.frame(seqnames = seqnames(gr),
                    starts = as(start(gr) - 1, "integer"),

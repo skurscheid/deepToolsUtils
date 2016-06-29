@@ -7,9 +7,16 @@ Author: Sebastian Kurscheid [aut, cre, cph]
 Authors@R: c(person("Sebastian", "Kurscheid", role = c("aut", "cre", "cph"),
   email = "sebastian.kurscheid@anu.edu.au"))
 Maintainer: Sebastian Kurscheid <sebastian.kurscheid@anu.edu.au>
-Depends: R (>= 3.0), GenomicFeatures, curl, biomaRt
-Imports: methods, utils
-Suggests: GenomicRanges
+Depends:
+    R (>= 3.2.0)
+Imports:
+    methods,
+    utils,
+    GenomicFeatures,
+    curl,
+    RCurl
+Suggests:
+    GenomicRanges
 Description: This is a collection of stand-alone functions which can be deployed
   in a snakemake workflow in order to create e.g. region files in BED format
   from existing annotation such as Ensembl GTF files.

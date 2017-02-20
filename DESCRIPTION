@@ -16,9 +16,10 @@ Imports:
     curl,
     RCurl,
     jsonlite,
-    readr
+    readr,
+    GenomicRanges,
+    IRanges
 Suggests:
-    GenomicRanges
 Description: This is a collection of stand-alone functions which can be deployed
   in a snakemake workflow in order to create e.g. region files in BED format
   from existing annotation such as Ensembl GTF files.

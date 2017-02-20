@@ -1,8 +1,8 @@
 Package: deepToolsUtils
 Type: Package
 Title: Pre and postprocessing functions for HTS data analysis using deepTools
-Version: 0.1.0
-Date: 2016-06-07
+Version: 0.1.1
+Date: 2016-07-20
 Author: Sebastian Kurscheid [aut, cre, cph]
 Authors@R: c(person("Sebastian", "Kurscheid", role = c("aut", "cre", "cph"),
   email = "sebastian.kurscheid@anu.edu.au"))
@@ -14,7 +14,9 @@ Imports:
     utils,
     GenomicFeatures,
     curl,
-    RCurl
+    RCurl,
+    jsonlite,
+    readr
 Suggests:
     GenomicRanges
 Description: This is a collection of stand-alone functions which can be deployed

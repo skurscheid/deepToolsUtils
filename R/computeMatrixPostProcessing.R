@@ -40,12 +40,14 @@ covPlotStats <- function(x){
   m <- mean(x)
   stdev <- sd(x)
   sem <- sd(x)/sqrt(l)
-  ci <- c(m-2*sem,m+2*sem)
+  ci_lower <- m-2*sem
+  ci_upper <- m+2*sem
   rl <- list(length = l,
              mean = m,
              stdev = stdev,
              sem = sem,
-             ci = ci)
+             ci_lower = ci_lower,
+             ci_upper = ci_upper)
   return(rl)
 }
 

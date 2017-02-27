@@ -42,7 +42,7 @@ covPlotStats <- function(x){
   sem <- sd(x)/sqrt(l)
   ci_lower <- m-2*sem
   ci_upper <- m+2*sem
-  rl <- list(length = l,
+  rl <- data.frame(length = l,
              mean = m,
              stdev = stdev,
              sem = sem,
@@ -70,12 +70,13 @@ makePlottingData <- function(computeMatrixList = NULL){
   l2 <- lapply(names(l1), function(x){
     print(x)
     sumDat <- apply(l1[[x]], 2, covPlotStats)
+    sumDat <- do.call("rbind", sumDat)
     m1 <- data.frame(bin = c(1:bins),
                      value = sumDat$mean,
                      stdev = sumDat$stdev,
                      sem = sumDat$stdev,
-                     ci_lower = sumDat$ci[1,],
-                     ci_upper = sumDat$ci[2,],
+                     ci_lower = sumDat$ci_lower,
+                     ci_upper = sumDat$ci_upper,
                      n_genes = sumDat$length,
                      sample = x,
                      group = paste(unlist(strsplit(x, "-"))[1:2], collapse = "-"))

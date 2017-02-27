@@ -4,6 +4,8 @@ require(readr)
 require(GenomicRanges)
 require(IRanges)
 
+
+
 computeMatrixLoader <- function(matrix_file = NULL){
   stopifnot(!is.null(matrix_file))
   if (file.exists(matrix_file)){
@@ -29,6 +31,24 @@ computeMatrixLoader <- function(matrix_file = NULL){
   }
 }
 
+covPlotStats <- function(x){
+  if (is.list(x)){
+    x <- unlist(x)
+  }
+  l <- length(x)
+  x <- as.numeric(x)
+  m <- mean(x)
+  stdev <- sd(x)
+  sem <- sd(x)/sqrt(l)
+  ci <- c(m-2*sem,m+2*sem)
+  rl <- list(length = l,
+             mean = m,
+             stdev = stdev,
+             sem = sem,
+             ci = ci)
+  return(rl)
+}
+
 makePlottingData <- function(computeMatrixList = NULL){
   stopifnot(!is.null(computeMatrixList))
   stopifnot(is.list(computeMatrixList))
@@ -47,8 +67,14 @@ makePlottingData <- function(computeMatrixList = NULL){
   names(l1) <- cm$runDef$sample_labels
   l2 <- lapply(names(l1), function(x){
     print(x)
+    sumDat <- apply(l1[[x]], 2, covPlotStats)
     m1 <- data.frame(bin = c(1:bins),
-                     value = apply(l1[[x]], 2, mean),
+                     value = sumDat$mean,
+                     stdev = sumDat$stdev,
+                     sem = sumDat$stdev,
+                     ci_lower = sumDat$ci[1,],
+                     ci_upper = sumDat$ci[2,],
+                     n_genes = sumDat$length,
                      sample = x,
                      group = paste(unlist(strsplit(x, "-"))[1:2], collapse = "-"))
     return(m1)

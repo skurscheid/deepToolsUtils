@@ -1,8 +1,8 @@
 Package: deepToolsUtils
 Type: Package
 Title: Pre and postprocessing functions for HTS data analysis using deepTools
-Version: 0.1.1
-Date: 2016-07-20
+Version: 0.1.2
+Date: 2017-02-27
 Author: Sebastian Kurscheid [aut, cre, cph]
 Authors@R: c(person("Sebastian", "Kurscheid", role = c("aut", "cre", "cph"),
   email = "sebastian.kurscheid@anu.edu.au"))

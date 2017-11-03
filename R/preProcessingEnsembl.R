@@ -64,18 +64,20 @@ WriteGRangesToBED <- function(gr = NULL,
 
   # pre-check if all fields are available for export
   if (is.null(names(gr))) {
+    st <- strand(gr1)
+    levels(st)[3] <- "."
   df <- data.frame(seqnames = seqnames(gr),
                    starts = as(start(gr) - 1, "integer"),
                    ends = as(end(gr), "integer"),
                    scores = ".",
-                   strand = strand(gr))
+                   strand = st)
   } else {
   df <- data.frame(seqnames = seqnames(gr),
                    starts = as(start(gr) - 1, "integer"),
                    ends = as(end(gr), "integer"),
                    names = names(gr),
                    scores = ".",
-                   strand = strand(gr))
+                   strand = st)
   }
   write.table(df, file = out_file, quote = F, sep = "\t", row.names = F, col.names = F)
 }

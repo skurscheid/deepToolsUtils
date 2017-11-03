@@ -62,10 +62,10 @@ WriteGRangesToBED <- function(gr = NULL,
   if (is.null(gr)) {stop("GRanges object missing")}
   if (is.null(out_file)) {stop("Output file is missing")}
 
+  st <- GenomicRanges::strand(gr)
+  levels(st)[3] <- "."
   # pre-check if all fields are available for export
   if (is.null(names(gr))) {
-    st <- strand(gr1)
-    levels(st)[3] <- "."
   df <- data.frame(seqnames = seqnames(gr),
                    starts = as(start(gr) - 1, "integer"),
                    ends = as(end(gr), "integer"),

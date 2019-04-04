@@ -3,8 +3,7 @@ require(jsonlite)
 require(readr)
 require(GenomicRanges)
 require(IRanges)
-
-
+require(data.table)
 
 computeMatrixLoader <- function(matrix_file = NULL){
   stopifnot(!is.null(matrix_file))
@@ -13,12 +12,8 @@ computeMatrixLoader <- function(matrix_file = NULL){
     runDef <- readLines(gzfile(matrix_file),n = 1)
     runDef <- jsonlite::fromJSON(gsub("@", "", runDef))
 
-    computeMatrix <- readr::read_tsv(gzfile(matrix_file), comment = "@", col_names = FALSE)
-    gr <- GenomicRanges::GRanges(seqnames = computeMatrix$X1,
-                                 IRanges::IRanges(start = computeMatrix$X2,
-                                                  end = computeMatrix$X3,
-                                                  names = computeMatrix$X4),
-                                 strand = computeMatrix$X6)
+    computeMatrix <- data.table::fread(matrix_file, skip = "1", sep = "\t", header = FALSE)
+    gr <- GenomicRanges::makeGRangesFromDataFrame(computeMatrix, keep.extra.columns = T, seqnames.field = "V1", start.field = "V2", end.field = "V3", strand.field = "V6")
     computeMatrix <- computeMatrix[,-c(1:3,5:6)]
     fn <- unlist(strsplit(matrix_file, "/"))[length(unlist(strsplit(matrix_file, "/")))]
     runList <- list(runDef = runDef,

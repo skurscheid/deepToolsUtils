@@ -14,10 +14,12 @@ computeMatrixLoader <- function(matrix_file = NULL){
 
     computeMatrix <- data.table::fread(matrix_file, skip = "1", sep = "\t", header = FALSE)
     gr <- GenomicRanges::makeGRangesFromDataFrame(computeMatrix, keep.extra.columns = T, seqnames.field = "V1", start.field = "V2", end.field = "V3", strand.field = "V6")
-    computeMatrix <- computeMatrix[,-c(1:3,5:6)]
+    rows <- computeMatrix[,4]
+    computeMatrix <- computeMatrix[,-c(1:6)]
     fn <- unlist(strsplit(matrix_file, "/"))[length(unlist(strsplit(matrix_file, "/")))]
     runList <- list(runDef = runDef,
                     computeMatrix = computeMatrix,
+                    computeMatrixRows = rows,
                     gr = gr,
                     fileName = fn)
     return(runList)
